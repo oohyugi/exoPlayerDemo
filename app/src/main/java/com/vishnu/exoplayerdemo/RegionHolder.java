@@ -1,6 +1,7 @@
 package com.vishnu.exoplayerdemo;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -97,6 +98,11 @@ public class RegionHolder extends RelativeLayout {
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
                     RelativeLayout.LayoutParams.MATCH_PARENT);
             params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+
+            Point point = Utils.getScreenMetrics(viewGroup.getContext());
+            params.width = point.x;
+            params.height = point.y;
+
             viewGroup.setLayoutParams(params);
             addView(customView);
             viewGroup.invalidate();

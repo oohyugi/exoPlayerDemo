@@ -1,8 +1,13 @@
 package com.vishnu.exoplayerdemo.util;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Point;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Display;
+import android.view.WindowManager;
 
 import com.vishnu.exoplayerdemo.pojos.PlaylistItem;
 import com.vishnu.exoplayerdemo.pojos.Region;
@@ -45,8 +50,8 @@ public class Utils {
         // smartTemplate
         PlaylistItem smartTemplate = new PlaylistItem("SMART_TEMPLATE.HTML", "SMART_TEMPLATE");
         smartTemplate.durationInMills = 30000;
-        playlistItems.add(smartTemplate);
         playlistItems.add(videoItem);
+        playlistItems.add(smartTemplate);
         return playlistItems;
     }
 
@@ -74,8 +79,24 @@ public class Utils {
         imageRegion.height = 100;
 
         smartTemplateData.regions.add(videoRegion);
-        smartTemplateData.regions.add(imageRegion);
+//        smartTemplateData.regions.add(imageRegion);
 
         return smartTemplateData;
+    }
+
+    public static Point getScreenMetrics(Context context) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        Resources resources = context.getResources();
+        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            int height = resources.getDimensionPixelSize(resourceId);
+            size.set(size.x, size.y + height);
+        }
+
+        return size;
     }
 }

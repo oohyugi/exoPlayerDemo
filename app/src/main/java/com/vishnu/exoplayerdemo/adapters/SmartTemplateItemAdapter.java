@@ -50,10 +50,11 @@ public class SmartTemplateItemAdapter extends ItemAdapter {
 
     private void createVideoRegion(ViewGroup viewGroup, Region region) {
         simpleExoPlayerView = new SimpleExoPlayerView(viewGroup.getContext());
+        simpleExoPlayerView.setUseController(false);
         setLayoutParams(viewGroup, region, simpleExoPlayerView);
         SimpleExoPlayer player = ExoPlayerUtils.getNewExoPlayerInstance(viewGroup.getContext());
         player.setPlayWhenReady(true);
-        ExoPlayerUtils.setSourceForExoPlayer(viewGroup.getContext(), player, region.path, false);
+        ExoPlayerUtils.setSourceForExoPlayer(viewGroup.getContext(), player, region.path, true);
         simpleExoPlayerView.setPlayer(player);
         viewGroup.addView(simpleExoPlayerView);
     }
